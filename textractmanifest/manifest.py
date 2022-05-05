@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import marshmallow as m
 import logging
 from typing import List
@@ -33,8 +33,9 @@ class Query():
 @dataclass
 class IDPManifest():
     s3_path: str
-    queries_config: List[Query]
-    textract_features: List[str]
+    queries_config: List[Query] = field(default=None)  #type: ignore
+    textract_features: List[str] = field(default=None)  #type: ignore
+    classification: List[str] = field(default=None)  #type: ignore
 
 
 class QuerySchema(BaseSchema):
@@ -50,11 +51,14 @@ class QuerySchema(BaseSchema):
 class IDPManifestSchema(BaseSchema):
     queries_config = m.fields.List(m.fields.Nested(QuerySchema),
                                    data_key="QueriesConfig",
-                                   required="False")
+                                   required=False)
     textract_features = m.fields.List(m.fields.String,
                                       data_key="TextractFeatures",
                                       required=False)
     s3_path = m.fields.String(data_key="S3Path", required=True)
+    classification = m.fields.List(m.fields.String,
+                                   data_key="Classification",
+                                   required=False)
 
     @m.post_load
     def make_queries_config(self, data, **kwargs):

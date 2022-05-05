@@ -14,4 +14,28 @@ def test_manifest_load(caplog):
         manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
         assert manifest
         assert manifest.s3_path
-        print(tm.IDPManifestSchema().dumps(manifest))
+
+
+def test_classification_manifest_load(caplog):
+    caplog.set_level(logging.DEBUG)
+    p = os.path.dirname(os.path.realpath(__file__))
+    manifest_path = os.path.join(p, "data/manifest_with_classification.json")
+    with open(manifest_path) as f:
+        j = json.load(f)
+        assert j
+        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
+        assert manifest
+        assert manifest.s3_path
+        assert manifest.classification == ["ID_DOCUMENT"]
+
+
+def test_manifest_minimal(caplog):
+    caplog.set_level(logging.DEBUG)
+    p = os.path.dirname(os.path.realpath(__file__))
+    manifest_path = os.path.join(p, "data/manifest_minimal.json")
+    with open(manifest_path) as f:
+        j = json.load(f)
+        assert j
+        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
+        assert manifest
+        assert manifest.s3_path
