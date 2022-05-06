@@ -32,7 +32,8 @@ class Query():
 
 @dataclass
 class IDPManifest():
-    s3_path: str
+    s3_path: str = field(default=None)  #type: ignore
+    document_pages: List[str] = field(default=None)  #type: ignore
     queries_config: List[Query] = field(default=None)  #type: ignore
     textract_features: List[str] = field(default=None)  #type: ignore
     classification: str = field(default=None)  #type: ignore
@@ -55,8 +56,11 @@ class IDPManifestSchema(BaseSchema):
     textract_features = m.fields.List(m.fields.String,
                                       data_key="TextractFeatures",
                                       required=False)
-    s3_path = m.fields.String(data_key="S3Path", required=True)
+    s3_path = m.fields.String(data_key="S3Path", required=False)
     classification = m.fields.String(data_key="Classification", required=False)
+    document_pages = m.fields.List(m.fields.String,
+                                   data_key="DocumentPages",
+                                   required=False)
 
     @m.post_load
     def make_queries_config(self, data, **kwargs):

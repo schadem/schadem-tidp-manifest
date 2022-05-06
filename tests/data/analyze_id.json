@@ -1,0 +1,7 @@
+{
+    "DocumentPages":[
+        "s3://amazon-textract-public-content/blogs/employeeapp20210510.png",
+        "s3://amazon-textract-public-content/blogs/employeeapp20210510.png"
+    ],
+    "Classification": "ID_DOCUMENT"
+}

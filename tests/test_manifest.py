@@ -41,3 +41,18 @@ def test_manifest_minimal(caplog):
         assert manifest.s3_path
         assert not manifest.queries_config
         assert not manifest.textract_features
+
+
+def test_manifest_analyze_id(caplog):
+    caplog.set_level(logging.DEBUG)
+    p = os.path.dirname(os.path.realpath(__file__))
+    manifest_path = os.path.join(p, "data/analyze_id.json")
+    with open(manifest_path) as f:
+        j = json.load(f)
+        assert j
+        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
+        assert manifest
+        assert manifest.document_pages
+        assert len(manifest.document_pages) == 2
+        assert not manifest.queries_config
+        assert not manifest.textract_features
