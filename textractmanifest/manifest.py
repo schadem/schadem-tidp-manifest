@@ -35,7 +35,7 @@ class IDPManifest():
     s3_path: str
     queries_config: List[Query] = field(default=None)  #type: ignore
     textract_features: List[str] = field(default=None)  #type: ignore
-    classification: List[str] = field(default=None)  #type: ignore
+    classification: str = field(default=None)  #type: ignore
 
 
 class QuerySchema(BaseSchema):
@@ -56,9 +56,7 @@ class IDPManifestSchema(BaseSchema):
                                       data_key="TextractFeatures",
                                       required=False)
     s3_path = m.fields.String(data_key="S3Path", required=True)
-    classification = m.fields.List(m.fields.String,
-                                   data_key="Classification",
-                                   required=False)
+    classification = m.fields.String(data_key="Classification", required=False)
 
     @m.post_load
     def make_queries_config(self, data, **kwargs):

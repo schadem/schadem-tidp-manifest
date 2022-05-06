@@ -10,5 +10,5 @@
         "Alias": "FULL_NAME",
         "Pages": ["*"]
     }],
-    "Classification":["ID_DOCUMENT"]
+    "Classification":"ID_DOCUMENT"
 }

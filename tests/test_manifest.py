@@ -26,7 +26,7 @@ def test_classification_manifest_load(caplog):
         manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
         assert manifest
         assert manifest.s3_path
-        assert manifest.classification == ["ID_DOCUMENT"]
+        assert manifest.classification == "ID_DOCUMENT"
 
 
 def test_manifest_minimal(caplog):
@@ -39,3 +39,5 @@ def test_manifest_minimal(caplog):
         manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
         assert manifest
         assert manifest.s3_path
+        assert not manifest.queries_config
+        assert not manifest.textract_features
