@@ -24,6 +24,12 @@ class BaseSchema(m.Schema):
 
 
 @dataclass
+class MetaData():
+    key: str
+    value: str
+
+
+@dataclass
 class Query():
     text: str
     alias: str
@@ -37,6 +43,12 @@ class IDPManifest():
     queries_config: List[Query] = field(default=None)  #type: ignore
     textract_features: List[str] = field(default=None)  #type: ignore
     classification: str = field(default=None)  #type: ignore
+    meta_data: List[MetaData] = field(default=None)  #type: ignore
+
+
+class MetaDataSchema(BaseSchema):
+    key = m.fields.String(data_key="Key", required=True)
+    value = m.fields.String(data_key="Value", required=False)
 
 
 class QuerySchema(BaseSchema):
@@ -61,6 +73,9 @@ class IDPManifestSchema(BaseSchema):
     document_pages = m.fields.List(m.fields.String,
                                    data_key="DocumentPages",
                                    required=False)
+    meta_data = m.fields.List(m.fields.Nested(MetaDataSchema),
+                              data_key="MetaData",
+                              required=False)
 
     @m.post_load
     def make_queries_config(self, data, **kwargs):
