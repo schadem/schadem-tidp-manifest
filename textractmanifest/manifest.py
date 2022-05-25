@@ -47,14 +47,14 @@ class IDPManifest():
 
 
 class MetaDataSchema(BaseSchema):
-    key = m.fields.String(data_key="Key", required=True)
-    value = m.fields.String(data_key="Value", required=False)
+    key = m.fields.String(data_key="key", required=True)
+    value = m.fields.String(data_key="value", required=False)
 
 
 class QuerySchema(BaseSchema):
-    text = m.fields.String(data_key="Text", required=True)
-    alias = m.fields.String(data_key="Alias", required=False)
-    pages = m.fields.List(m.fields.String, data_key="Pages", required=False)
+    text = m.fields.String(data_key="text", required=True)
+    alias = m.fields.String(data_key="alias", required=False)
+    pages = m.fields.List(m.fields.String, data_key="pages", required=False)
 
     @m.post_load
     def make_query(self, data, **kwargs):
@@ -63,18 +63,18 @@ class QuerySchema(BaseSchema):
 
 class IDPManifestSchema(BaseSchema):
     queries_config = m.fields.List(m.fields.Nested(QuerySchema),
-                                   data_key="QueriesConfig",
+                                   data_key="queriesConfig",
                                    required=False)
     textract_features = m.fields.List(m.fields.String,
-                                      data_key="TextractFeatures",
+                                      data_key="textractFeatures",
                                       required=False)
-    s3_path = m.fields.String(data_key="S3Path", required=False)
-    classification = m.fields.String(data_key="Classification", required=False)
+    s3_path = m.fields.String(data_key="s3Path", required=False)
+    classification = m.fields.String(data_key="classification", required=False)
     document_pages = m.fields.List(m.fields.String,
-                                   data_key="DocumentPages",
+                                   data_key="documentPages",
                                    required=False)
     meta_data = m.fields.List(m.fields.Nested(MetaDataSchema),
-                              data_key="MetaData",
+                              data_key="metaData",
                               required=False)
 
     @m.post_load

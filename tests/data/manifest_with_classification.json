@@ -1,14 +1,14 @@
 {
-    "S3Path": "s3://amazon-textract-public-content/blogs/employeeapp20210510.png",
-    "TextractFeatures": [
+    "s3Path": "s3://amazon-textract-public-content/blogs/employeeapp20210510.png",
+    "textractFeatures": [
         "FORMS",
         "TABLES",
         "QUERIES"
     ],
-    "QueriesConfig": [{
-        "Text": "What is the applicant full name?",
-        "Alias": "FULL_NAME",
-        "Pages": ["*"]
+    "queriesConfig": [{
+        "text": "What is the applicant full name?",
+        "alias": "FULL_NAME",
+        "pages": ["*"]
     }],
-    "Classification":"ID_DOCUMENT"
+    "classification":"EMPLOYMENT_APPLICATION"
 }

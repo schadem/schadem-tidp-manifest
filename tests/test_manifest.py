@@ -29,7 +29,7 @@ def test_classification_manifest_load(caplog):
 
         assert manifest
         assert manifest.s3_path
-        assert manifest.classification == "ID_DOCUMENT"
+        assert manifest.classification == "EMPLOYMENT_APPLICATION"
 
 
 def test_classification_manifest_metadata_load(caplog):
@@ -40,10 +40,11 @@ def test_classification_manifest_metadata_load(caplog):
     with open(manifest_path) as f:
         j = json.load(f)
         assert j
-        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(j)
+        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(
+            j)  #type: ignore
         assert manifest
         assert manifest.s3_path
-        assert manifest.classification == "ID_DOCUMENT"
+        assert manifest.classification == "EMPLOYMENT_APPLICATION"
 
 
 def test_manifest_minimal(caplog):
