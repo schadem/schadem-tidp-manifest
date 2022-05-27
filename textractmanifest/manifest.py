@@ -45,6 +45,20 @@ class IDPManifest():
     classification: str = field(default=None)  #type: ignore
     meta_data: List[MetaData] = field(default=None)  #type: ignore
 
+    def merge(self, manifest: 'IDPManifest'):
+        ''' add values top level from the passed in manifest when not defined in the manifest itself.
+        TODO: implement proper merging with joining arrays for example'''
+        if manifest.s3_path and not self.s3_path:
+            self.s3_path = manifest.s3_path
+        if manifest.document_pages and not self.document_pages:
+            self.document_pages = manifest.document_pages
+        if manifest.queries_config and not self.queries_config:
+            self.queries_config = manifest.queries_config
+        if manifest.textract_features and not self.textract_features:
+            self.textract_features = manifest.textract_features
+        if manifest.meta_data and not self.meta_data:
+            self.meta_data = manifest.meta_data
+
 
 class MetaDataSchema(BaseSchema):
     key = m.fields.String(data_key="key", required=True)
