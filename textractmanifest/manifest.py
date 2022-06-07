@@ -33,7 +33,7 @@ class MetaData():
 class Query():
     text: str
     alias: str
-    pages: List[str]
+    pages: List[str] = field(default=None)  #type: ignore
 
 
 @dataclass
