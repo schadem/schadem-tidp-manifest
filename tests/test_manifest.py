@@ -47,6 +47,21 @@ def test_manifest_queries_no_pages(caplog):
         assert manifest.queries_config
 
 
+def test_manifest_queries_forms(caplog):
+    caplog.set_level(logging.DEBUG)
+    p = os.path.dirname(os.path.realpath(__file__))
+    manifest_path = os.path.join(p, "data/queries_forms.json")
+    with open(manifest_path) as f:
+        j = json.load(f)
+        assert j
+        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(
+            j)  #type: ignore
+
+        assert manifest
+        assert manifest.s3_path
+        assert manifest.queries_config
+
+
 def test_manifest_creation_with_queries(caplog):
     manifest: tm.IDPManifest = tm.IDPManifest()
     manifest.s3_path = f"s3://somebucket/somekey"
