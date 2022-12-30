@@ -32,6 +32,21 @@ def test_classification_manifest_load(caplog):
         assert manifest.classification == "EMPLOYMENT_APPLICATION"
 
 
+def test_classification_manifest_load(caplog):
+    caplog.set_level(logging.DEBUG)
+    p = os.path.dirname(os.path.realpath(__file__))
+    manifest_path = os.path.join(p, "data/manifest_all_features.json")
+    with open(manifest_path) as f:
+        j = json.load(f)
+        assert j
+        manifest: tm.IDPManifest = tm.IDPManifestSchema().load(
+            j)  #type: ignore
+
+        assert manifest
+        assert manifest.s3_path
+        assert manifest.classification == "EMPLOYMENT_APPLICATION"
+
+
 def test_manifest_queries_no_pages(caplog):
     caplog.set_level(logging.DEBUG)
     p = os.path.dirname(os.path.realpath(__file__))
